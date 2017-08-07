@@ -28,6 +28,38 @@ public class Recipe implements Parcelable {
     @SerializedName("steps")
     private List<Steps> stepList;
 
+
+    private Recipe(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        servings = in.readString();
+        image = in.readString();
+        ingredientList = in.createTypedArrayList(Ingredients.CREATOR);
+        stepList = in.createTypedArrayList(Steps.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeString(servings);
+        dest.writeString(image);
+        dest.writeTypedList(ingredientList);
+        dest.writeTypedList(stepList);
+    }
+
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
+
     public List<Ingredients> getIngredientList() {
         return ingredientList;
     }
@@ -76,27 +108,10 @@ public class Recipe implements Parcelable {
         this.servings = servings;
     }
 
-    protected Recipe(Parcel in) {
-    }
-
-    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
-        @Override
-        public Recipe createFromParcel(Parcel in) {
-            return new Recipe(in);
-        }
-
-        @Override
-        public Recipe[] newArray(int size) {
-            return new Recipe[size];
-        }
-    };
 
     @Override
     public int describeContents() {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
 }

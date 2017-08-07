@@ -24,6 +24,32 @@ public class Steps implements Parcelable {
     @SerializedName("thumbnailURL")
     private String thumbnailURL;
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(shortDescription);
+        dest.writeString(description);
+        dest.writeString(videoURL);
+        dest.writeString(thumbnailURL);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Steps> CREATOR = new Creator<Steps>() {
+        @Override
+        public Steps createFromParcel(Parcel in) {
+            return new Steps(in);
+        }
+
+        @Override
+        public Steps[] newArray(int size) {
+            return new Steps[size];
+        }
+    };
+
     public String getId() {
         return id;
     }
@@ -64,27 +90,13 @@ public class Steps implements Parcelable {
         this.thumbnailURL = thumbnailURL;
     }
 
-    protected Steps(Parcel in) {
+    private Steps(Parcel in) {
+        id = in.readString();
+        shortDescription = in.readString();
+        description = in.readString();
+        videoURL = in.readString();
+        thumbnailURL = in.readString();
     }
 
-    public static final Creator<Steps> CREATOR = new Creator<Steps>() {
-        @Override
-        public Steps createFromParcel(Parcel in) {
-            return new Steps(in);
-        }
 
-        @Override
-        public Steps[] newArray(int size) {
-            return new Steps[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
 }

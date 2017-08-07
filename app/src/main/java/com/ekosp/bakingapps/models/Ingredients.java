@@ -20,6 +20,36 @@ public class Ingredients implements Parcelable {
     @SerializedName("ingredient")
     private String ingredient;
 
+    private Ingredients(Parcel in) {
+        quantity = in.readString();
+        measure = in.readString();
+        ingredient = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(quantity);
+        dest.writeString(measure);
+        dest.writeString(ingredient);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Ingredients> CREATOR = new Creator<Ingredients>() {
+        @Override
+        public Ingredients createFromParcel(Parcel in) {
+            return new Ingredients(in);
+        }
+
+        @Override
+        public Ingredients[] newArray(int size) {
+            return new Ingredients[size];
+        }
+    };
+
     public String getQuantity() {
         return quantity;
     }
@@ -44,27 +74,6 @@ public class Ingredients implements Parcelable {
         this.ingredient = ingredient;
     }
 
-    protected Ingredients(Parcel in) {
-    }
 
-    public static final Creator<Ingredients> CREATOR = new Creator<Ingredients>() {
-        @Override
-        public Ingredients createFromParcel(Parcel in) {
-            return new Ingredients(in);
-        }
 
-        @Override
-        public Ingredients[] newArray(int size) {
-            return new Ingredients[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
 }
