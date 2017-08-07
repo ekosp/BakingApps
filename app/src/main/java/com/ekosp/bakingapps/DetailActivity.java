@@ -26,38 +26,24 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-// get the reference of Button's
-        firstFragment = (Button) findViewById(R.id.firstFragment);
-        secondFragment = (Button) findViewById(R.id.secondFragment);
 
-// perform setOnClickListener event on First Button
-        firstFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-// load First Fragment
-                loadFragment(new FirstFragment());
-            }
-        });
-// perform setOnClickListener event on Second Button
-        secondFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-// load Second Fragment
-                loadFragment(new SecondFragment());
-            }
-        });
+        // passing movie_id to fragment
+        Bundle arguments = new Bundle();
+        arguments.putParcelable(DetailActivity.PARAM_RECIPE_ID,
+                getIntent().getParcelableExtra(DetailActivity.PARAM_RECIPE_ID));
+        // set fragment programatically
 
-    }
+        Fragment fragment = new FirstFragment();
+        fragment.setArguments(arguments);
 
-
-
-    private void loadFragment(Fragment fragment) {
-// create a FragmentManager
         FragmentManager fm = getFragmentManager();
-// create a FragmentTransaction to begin the transaction and replace the Fragment
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-// replace the FrameLayout with new Fragment
         fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit(); // save the changes
+        fragmentTransaction.commit();
+
+
     }
+
+
+
 }

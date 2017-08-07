@@ -55,7 +55,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
 
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-               // Log.d(TAG, "Number of recipes received: " + response.body().toString());
                 mListRecipes = response.body();
                 mRecipeAdapter.setmRecipeList(mListRecipes);
             }
