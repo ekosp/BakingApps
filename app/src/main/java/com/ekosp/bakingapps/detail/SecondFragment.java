@@ -25,15 +25,15 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-// Inflate the layout for this fragment
+        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_second, container, false);
-// get the reference of Button
+        // get the reference of Button
         firstButton = (Button) view.findViewById(R.id.firstButton);
-// perform setOnClickListener on first Button
+        // perform setOnClickListener on first Button
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-// display a message by using a Toast
+        // display a message by using a Toast
                 Toast.makeText(getActivity(), "First Fragment", Toast.LENGTH_LONG).show();
             }
         });
