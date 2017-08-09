@@ -4,14 +4,17 @@ package com.ekosp.bakingapps;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ekosp.bakingapps.detail.FirstFragment;
-import com.ekosp.bakingapps.detail.SecondFragment;
+import com.ekosp.bakingapps.detail.RecipeDetailFragment;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -27,13 +30,15 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+
+
         // passing movie_id to fragment
         Bundle arguments = new Bundle();
-        arguments.putParcelable(DetailActivity.PARAM_RECIPE_ID,
+        arguments.putParcelable(RecipeDetailFragment.PARAM_RECIPE_ID,
                 getIntent().getParcelableExtra(DetailActivity.PARAM_RECIPE_ID));
         // set fragment programatically
 
-        Fragment fragment = new FirstFragment();
+        Fragment fragment = new RecipeDetailFragment();
         fragment.setArguments(arguments);
 
         FragmentManager fm = getFragmentManager();
@@ -43,7 +48,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

@@ -18,7 +18,6 @@ import com.ekosp.bakingapps.R;
 
 public class SecondFragment extends Fragment {
 
-
     View view;
     Button firstButton;
 
