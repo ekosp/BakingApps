@@ -11,10 +11,10 @@ import com.google.gson.annotations.SerializedName;
  * or for more detail at  : http://ekosp.com
  */
 
-public class Steps implements Parcelable {
+public class Step implements Parcelable {
 
     @SerializedName("id")
-    private String id;
+    private int id;
     @SerializedName("shortDescription")
     private String shortDescription;
     @SerializedName("description")
@@ -26,7 +26,7 @@ public class Steps implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
+        dest.writeInt(id);
         dest.writeString(shortDescription);
         dest.writeString(description);
         dest.writeString(videoURL);
@@ -38,23 +38,23 @@ public class Steps implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Steps> CREATOR = new Creator<Steps>() {
+    public static final Creator<Step> CREATOR = new Creator<Step>() {
         @Override
-        public Steps createFromParcel(Parcel in) {
-            return new Steps(in);
+        public Step createFromParcel(Parcel in) {
+            return new Step(in);
         }
 
         @Override
-        public Steps[] newArray(int size) {
-            return new Steps[size];
+        public Step[] newArray(int size) {
+            return new Step[size];
         }
     };
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -90,8 +90,8 @@ public class Steps implements Parcelable {
         this.thumbnailURL = thumbnailURL;
     }
 
-    private Steps(Parcel in) {
-        id = in.readString();
+    private Step(Parcel in) {
+        id = in.readInt();
         shortDescription = in.readString();
         description = in.readString();
         videoURL = in.readString();

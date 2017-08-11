@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ekosp.bakingapps.R;
-import com.ekosp.bakingapps.models.Steps;
+import com.ekosp.bakingapps.models.Step;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder> {
 
-    private List<Steps> mStepList;
+    private List<Step> mStepList;
     private Context mContext;
     private stepCallbacks mStepCallbacks;
 
@@ -32,26 +32,26 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     }
 
     public interface stepCallbacks {
-        void open(Steps step);
+        void open(Step step);
     }
 
     @Override
     public StepViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View itemView = LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.step_detail_items, parent, false);
+                parent.getContext()).inflate(R.layout.step_items, parent, false);
         return new StepViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final StepViewHolder holder, int position) {
-        Steps mStep = mStepList.get(position);
+        Step mStep = mStepList.get(position);
         holder.mShortDescription.setText(mStep.getShortDescription());
       //  holder.mDescription.setText(mStep.getDescription());
 
         holder.mLinearContainer.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 int pos = holder.getAdapterPosition();
-                Steps steps = mStepList.get(pos);
+                Step steps = mStepList.get(pos);
                 Log.i("detail step","id : "+steps.getId());
                 mStepCallbacks.open(steps);
             }
@@ -76,11 +76,11 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         }
     }
 
-    public List<Steps> getmStepList() {
+    public List<Step> getmStepList() {
         return mStepList;
     }
 
-    public void setmStepList(List<Steps> mStepList) {
+    public void setmStepList(List<Step> mStepList) {
         this.mStepList = mStepList;
         notifyDataSetChanged();
     }

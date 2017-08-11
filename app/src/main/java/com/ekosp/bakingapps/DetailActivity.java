@@ -4,22 +4,22 @@ package com.ekosp.bakingapps;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
+import android.util.Log;
+import android.widget.Toast;
 
-import com.ekosp.bakingapps.detail.RecipeDetailFragment;
+import com.ekosp.bakingapps.detail.StepDetailFragment;
+import com.ekosp.bakingapps.detail.StepListFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static final String PARAM_RECIPE_ID  = "PARAM_RECIPE_ID";
     public static final String TAG  = "TAG_DETAIL";
+    private static final String BACK_STACK_ROOT_TAG = "root_fragment";
     private static final String TAG_FRAGMENT = "TAG_FRAGMENT";
 
     @Override
@@ -27,20 +27,37 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        // passing movie_id to fragment
-        Bundle arguments = new Bundle();
-        arguments.putParcelable(RecipeDetailFragment.PARAM_RECIPE_ID,
-                getIntent().getParcelableExtra(DetailActivity.PARAM_RECIPE_ID));
 
-        // set fragment programatically
-        Fragment fragment = new RecipeDetailFragment();
-        fragment.setArguments(arguments);
+/*
+if (savedInstanceState != null) {
 
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
+    if (!savedInstanceState.getBoolean("stepDetail")) {
+            // load exsiting step detail fragment
 
+
+    } else {
+        // load step list fragment
+
+    }
+} else {
+
+*/
+
+    // passing movie_id to fragment
+    Bundle arguments = new Bundle();
+    arguments.putParcelable(StepListFragment.PARAM_RECIPE_ID,
+            getIntent().getParcelableExtra(DetailActivity.PARAM_RECIPE_ID));
+
+    // set step list fragment
+    android.support.v4.app.Fragment fragment = new StepListFragment();
+    fragment.setArguments(arguments);
+    android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+    fm.beginTransaction()
+            .replace(R.id.frameLayout, fragment)
+            //.addToBackStack(BACK_STACK_ROOT_TAG)
+            //  .addToBackStack(null)
+            .commit();
+//}
 
     }
 

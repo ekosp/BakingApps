@@ -38,7 +38,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View itemView = LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.recyclerview_items, parent, false);
+                parent.getContext()).inflate(R.layout.recipe_items, parent, false);
         return new RecipeViewHolder(itemView);
     }
 
@@ -52,7 +52,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             @Override public void onClick(View v) {
                 int pos = holder.getAdapterPosition();
                 Recipe recipe = mRecipeList.get(pos);
-                Log.i("Recipe","id : "+recipe.getId());
+              //  Log.i("Recipe","id : "+recipe.getId());
                 mRecipeCallbacks.open(recipe);
             }
         });
@@ -82,10 +82,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public void setmRecipeList(List<Recipe> mRecipeList) {
 
-        if (mRecipeList == null) Log.i("recipe list", "lho kok recipe list balikan online nya null?");
+      //  if (mRecipeList == null) Log.i("recipe list", "lho kok recipe list balikan online nya null?");
 //        if  (this.mRecipeList.size() != 0) this.mRecipeList.clear();
-        int ukuran = mRecipeList.size();
-        Log.i("recipe list", "jumlah list ada : "+String.valueOf(ukuran));
+      //  int ukuran = mRecipeList.size();
+      //  Log.i("recipe list", "jumlah list ada : "+String.valueOf(ukuran));
         this.mRecipeList = mRecipeList;
        // this.mRecipeList = mRecipeList;
         notifyDataSetChanged();

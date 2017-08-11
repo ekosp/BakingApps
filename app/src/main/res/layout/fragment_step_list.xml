@@ -4,20 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.ekosp.bakingapps.detail.RecipeDetailFragment">
-
-<ScrollView
-    android:padding="10dp"
-    android:layout_width="match_parent"
-    android:layout_height="100dp">
+    tools:context="com.ekosp.bakingapps.detail.StepListFragment">
 
     <TextView
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="List of Ingredient :"
         android:layout_width="match_parent"
-        android:id="@+id/ingredient_list"
+        android:background="@color/black"
+        android:textColor="@color/white"
         android:layout_height="wrap_content" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:padding="10dp">
 
-</ScrollView>
+        <TextView
+            android:id="@+id/ingredient_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </ScrollView>
     <!--
         &lt;!&ndash;TextView and Button displayed in First Fragment &ndash;&gt;
         <TextView
@@ -43,6 +52,15 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />-->
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="List of Step :"
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_step"

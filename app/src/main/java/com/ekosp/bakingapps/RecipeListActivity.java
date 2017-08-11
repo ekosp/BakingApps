@@ -68,7 +68,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
 
     @Override
     public void open(Recipe recipe) {
-        Toast.makeText(this, "open recipe id :"+recipe.getId(), Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "open recipe id :"+recipe.getId(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.PARAM_RECIPE_ID, recipe);
         startActivity(intent);
