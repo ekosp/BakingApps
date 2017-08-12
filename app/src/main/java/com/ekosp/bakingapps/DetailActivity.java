@@ -27,39 +27,27 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
-/*
-if (savedInstanceState != null) {
-
-    if (!savedInstanceState.getBoolean("stepDetail")) {
-            // load exsiting step detail fragment
-
-
-    } else {
-        // load step list fragment
-
-    }
-} else {
-
-*/
-
     // passing movie_id to fragment
     Bundle arguments = new Bundle();
     arguments.putParcelable(StepListFragment.PARAM_RECIPE_ID,
             getIntent().getParcelableExtra(DetailActivity.PARAM_RECIPE_ID));
 
-    // set step list fragment
-    android.support.v4.app.Fragment fragment = new StepListFragment();
-    fragment.setArguments(arguments);
-    android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-    fm.beginTransaction()
-            .replace(R.id.frameLayout, fragment)
-            //.addToBackStack(BACK_STACK_ROOT_TAG)
-            //  .addToBackStack(null)
-            .commit();
-//}
+        // only load new fragment if savestate is empty
+        if (savedInstanceState == null) {
+            // set step list fragment
+            android.support.v4.app.Fragment fragment = new StepListFragment();
+            fragment.setArguments(arguments);
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .replace(R.id.frameLayout, fragment)
+                    //.addToBackStack(BACK_STACK_ROOT_TAG)
+                    //  .addToBackStack(null)
+                    .commit();
+        }
+
 
     }
+
 
 
 }

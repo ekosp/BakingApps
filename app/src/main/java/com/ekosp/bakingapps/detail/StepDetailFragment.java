@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,10 +82,10 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
             if (savedInstanceState.containsKey(PARAM_DETAIL_STEP_ID))
                 mStepId = savedInstanceState.getInt(PARAM_DETAIL_STEP_ID);
 
-            android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
+        /*    android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
             fm.beginTransaction()
                     .remove(fm.findFragmentByTag(StepListFragment.PARAM_TAG_FRAGMENNT_STEP_LIST))
-                    .commit();
+                    .commit();*/
 
         }
 
@@ -120,10 +121,20 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
             playerView = (SimpleExoPlayerView) view.findViewById(R.id.video_view);
         }
 
+        Log.i("VIDEO URL ", stepArrayList.get(mStepId).getVideoURL());
         initializePlayer(stepArrayList.get(mStepId).getVideoURL());
 
         return view;
     }
+
+    /*@Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Fragment f = getActivity().getSupportFragmentManager().findFragmentByTag(StepListFragment.PARAM_TAG_FRAGMENNT_STEP_LIST);
+        if (f != null) getActivity().getSupportFragmentManager().beginTransaction()
+            .remove(f).commit();
+    }*/
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -154,6 +165,7 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
         }
         mStepPos.setText(id+"/"+(size-1));
     }
+
 
     @Override
     public void onBackStackChanged() {

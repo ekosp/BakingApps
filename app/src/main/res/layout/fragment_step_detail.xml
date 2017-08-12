@@ -13,8 +13,8 @@
         <com.google.android.exoplayer2.ui.SimpleExoPlayerView
             android:id="@+id/video_view"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="214dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
 
    <!-- </LinearLayout>-->
 

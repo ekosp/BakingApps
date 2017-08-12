@@ -3,13 +3,21 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.NoTitleBar.Fullscreen" >
         <!-- Customize your theme here. -->
+       <!-- <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>-->
+    </style>
+
+    <style name="AppThemeMain" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppThemeStepDetailFragment" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppThemeStepDetailFragment" parent="Theme.AppCompat.Light.NoActionBar">
 
+        <!--<item name="colorPrimaryDark">@color/white</item>-->
     </style>
 
 
