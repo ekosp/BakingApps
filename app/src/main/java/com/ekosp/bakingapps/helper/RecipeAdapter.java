@@ -63,7 +63,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             @Override public void onClick(View v) {
                 int pos = holder.getAdapterPosition();
                 Recipe recipe = mRecipeList.get(pos);
-              //  Log.i("Recipe","id : "+recipe.getId());
                 mRecipeCallbacks.open(recipe);
             }
         });

@@ -8,10 +8,14 @@ package com.ekosp.bakingapps.detail;
 
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +24,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ekosp.bakingapps.DetailActivity;
 import com.ekosp.bakingapps.R;
+import com.ekosp.bakingapps.RecipeListActivity;
 import com.ekosp.bakingapps.models.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
@@ -39,7 +46,7 @@ import com.google.android.exoplayer2.util.Util;
 
 import java.util.ArrayList;
 
-public class StepDetailFragment extends Fragment implements android.support.v4.app.FragmentManager.OnBackStackChangedListener {
+public class StepDetailFragment extends Fragment {
 
     View view;
     TextView mStepdescription, mStepPos;
@@ -55,25 +62,25 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
     private long playbackPosition;
     private int currentWindow;
     private boolean playWhenReady = true;
-
+    private boolean mIsTablet ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mIsTablet  = (getResources().getBoolean(R.bool.isTab)) ;
 
         if (getArguments().containsKey(StepDetailFragment.PARAM_LIST_STEP)) {
             stepArrayList = getArguments().getParcelableArrayList(StepDetailFragment.PARAM_LIST_STEP);
-          //  Log.i("TAG STEP DeTAIL",String.valueOf(stepArrayList.size()));
         }
         if (getArguments().containsKey(StepDetailFragment.PARAM_DETAIL_STEP_ID)) {
             mStepId = getArguments().getInt(StepDetailFragment.PARAM_DETAIL_STEP_ID);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_step_detail, container, false);
 
         if (savedInstanceState != null) {
@@ -81,16 +88,12 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
                 stepArrayList = savedInstanceState.getParcelableArrayList(PARAM_LIST_STEP);
             if (savedInstanceState.containsKey(PARAM_DETAIL_STEP_ID))
                 mStepId = savedInstanceState.getInt(PARAM_DETAIL_STEP_ID);
-
-        /*    android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
-            fm.beginTransaction()
-                    .remove(fm.findFragmentByTag(StepListFragment.PARAM_TAG_FRAGMENNT_STEP_LIST))
-                    .commit();*/
-
         }
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            //Do some stuff
+        getActivity().setTitle(stepArrayList.get(mStepId).getShortDescription());
+        setToolbar();
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT || mIsTablet ){
             mStepdescription = (TextView) view.findViewById(R.id.stepDescription);
             playerView = (SimpleExoPlayerView) view.findViewById(R.id.video_view);
             mStepPos = (TextView) view.findViewById(R.id.stepPosition);
@@ -121,20 +124,29 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
             playerView = (SimpleExoPlayerView) view.findViewById(R.id.video_view);
         }
 
-        Log.i("VIDEO URL ", stepArrayList.get(mStepId).getVideoURL());
+        // almost all exoplayer implementation using
+        // code from : https://codelabs.developers.google.com/codelabs/exoplayer-intro/
         initializePlayer(stepArrayList.get(mStepId).getVideoURL());
 
         return view;
     }
 
-    /*@Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void setToolbar() {
+        // get from : https://stackoverflow.com/questions/26998455/how-to-get-toolbar-from-fragment
+        // and from:  https://freakycoder.com/android-notes-24-how-to-add-back-button-at-toolbar-941e6577418e
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        Fragment f = getActivity().getSupportFragmentManager().findFragmentByTag(StepListFragment.PARAM_TAG_FRAGMENNT_STEP_LIST);
-        if (f != null) getActivity().getSupportFragmentManager().beginTransaction()
-            .remove(f).commit();
-    }*/
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+            }
+        });
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -167,11 +179,6 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
     }
 
 
-    @Override
-    public void onBackStackChanged() {
-       // shouldDisplayHomeUp();
-    }
-
     private void initializePlayer(String videoURL) {
         player = ExoPlayerFactory.newSimpleInstance(
                 getActivity().getApplicationContext(),
@@ -195,7 +202,7 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT > 23) {
-         //   initializePlayer();
+            initializePlayer(stepArrayList.get(mStepId).getVideoURL());
         }
     }
 
@@ -204,7 +211,7 @@ public class StepDetailFragment extends Fragment implements android.support.v4.a
         super.onResume();
         hideSystemUi();
         if ((Util.SDK_INT <= 23 || player == null)) {
-           // initializePlayer();
+            initializePlayer(stepArrayList.get(mStepId).getVideoURL());
         }
     }
 

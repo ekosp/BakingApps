@@ -7,10 +7,13 @@ package com.ekosp.bakingapps.detail;
  */
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ekosp.bakingapps.R;
+import com.ekosp.bakingapps.RecipeListActivity;
 import com.ekosp.bakingapps.helper.Converter;
 import com.ekosp.bakingapps.helper.SimpleDividerItemDecoration;
 import com.ekosp.bakingapps.helper.StepAdapter;
@@ -33,12 +37,12 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
     public static String PARAM_RECIPE_ID = "PARAM_RECIPE_ID";
     public static String PARAM_TAG_FRAGMENNT_STEP_LIST =  "TAG_STEP_LIST";
     View view;
-    Button firstButton;
     TextView ingredientList;
     Recipe mRecipe;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private StepAdapter mStepAdapter;
+    private boolean mIsTablet ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +50,22 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
         view = inflater.inflate(R.layout.fragment_step_list, container, false);
         ingredientList = (TextView) view.findViewById(R.id.ingredient_list);
         ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
+
+        // set toolbar
+        // get from : https://stackoverflow.com/questions/26998455/how-to-get-toolbar-from-fragment
+        // and from:  https://freakycoder.com/android-notes-24-how-to-add-back-button-at-toolbar-941e6577418e
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(((AppCompatActivity) getActivity()).
+                        getApplicationContext(),RecipeListActivity.class));
+            }
+        });
 
         //set recycle step detail
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_step);
@@ -78,20 +98,32 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
 
    @Override
     public void open(Step step) {
-           Bundle arguments = new Bundle();
-         arguments.putParcelableArrayList (StepDetailFragment.PARAM_LIST_STEP, listToArrayList(mRecipe.getStepList()) );
-      arguments.putInt(StepDetailFragment.PARAM_DETAIL_STEP_ID, step.getId());
+       mIsTablet  = (getResources().getBoolean(R.bool.isTab)) ;
+       Bundle arguments = new Bundle();
+       arguments.putParcelableArrayList (StepDetailFragment.PARAM_LIST_STEP, listToArrayList(mRecipe.getStepList()) );
+       arguments.putInt(StepDetailFragment.PARAM_DETAIL_STEP_ID, step.getId());
 
-    // set step detail fragment
-    android.support.v4.app.Fragment fragment = new StepDetailFragment();
-    fragment.setArguments(arguments);
-    android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
-    fm.beginTransaction()
-            .replace(R.id.frameLayout, fragment, PARAM_TAG_FRAGMENNT_STEP_LIST)
-           // .addToBackStack(null)
-            .commit();
+       if (mIsTablet) {
+           // set step detail fragment
+           android.support.v4.app.Fragment fragment = new StepDetailFragment();
+           fragment.setArguments(arguments);
+           android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
+           fm.beginTransaction()
+                   .replace(R.id.flDetailContainer, fragment, PARAM_TAG_FRAGMENNT_STEP_LIST)
+                   .addToBackStack(null)
+                   .commit();
 
-    Log.i("TAG BACKSTACK 2", String.valueOf(getActivity().getSupportFragmentManager().getBackStackEntryCount()));
+       } else {
+           // set step detail fragment
+           android.support.v4.app.Fragment fragment = new StepDetailFragment();
+           fragment.setArguments(arguments);
+           android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
+           fm.beginTransaction()
+                   .replace(R.id.frameLayout, fragment, PARAM_TAG_FRAGMENNT_STEP_LIST)
+                   .addToBackStack(null)
+                   .commit();
+       }
+
 
    }
 

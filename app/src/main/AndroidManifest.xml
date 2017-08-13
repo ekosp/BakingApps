@@ -10,24 +10,40 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/baking_128"
         android:supportsRtl="true">
-
-        <activity android:name=".RecipeListActivity"
-            android:theme="@style/AppThemeMain"  >
+        <activity
+            android:name=".RecipeListActivity"
+            android:theme="@style/AppThemeMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".DetailActivity"
-            android:theme="@style/AppThemeStepDetailFragment"
-            android:parentActivityName="RecipeListActivity" >
-            <!-- Parent activity meta-data to support 4.0 and lower -->
+        <activity
+            android:name=".DetailActivity"
+            android:parentActivityName=".RecipeListActivity"
+            android:theme="@style/NoActionbar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".RecipeListActivity" />
         </activity>
+
+        <!--used by widget-->
+        <receiver android:name=".widget.WidgetProvider" >
+            <intent-filter>
+
+                <!-- This widget provider receives broadcast with following action name or simply onUpdate of AppWidgetProvider is called -->
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <!-- linking up xml file of appwidget-provider to AppWidgetProvider -->
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widgetinfo" />
+        </receiver>
+
+        <service
+            android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
     </application>
 

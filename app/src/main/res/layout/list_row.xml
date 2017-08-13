@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:background="@android:color/black">
+
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/quantityText"
+        android:layout_width="5mm"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        tools:text="2"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dip"
+        android:textSize="14sp"   />
+
+    <TextView
+        android:id="@+id/measureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        tools:text="CUP"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dip"
+        android:textSize="14sp"   />
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/ingredientText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        tools:text="Graham Cracker crumbs"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dip"
+        android:textSize="14sp"   />
+
+</LinearLayout>

@@ -63,18 +63,11 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
         if (savedInstanceState != null && savedInstanceState.containsKey(TAG_PARAM_RECIPE_LIST)) {
             // load existing recipe
             ArrayList<Recipe> ar = savedInstanceState.getParcelableArrayList(TAG_PARAM_RECIPE_LIST);
-            Log.i("CEK SAVESTAED", String.valueOf(ar.isEmpty()));
-            /*for (Recipe r : ar) {
-                mListRecipes.add(r);
-            }
-            */
+            List<Recipe> listRecipes = new ArrayList<>();
             for (int i=0; i< ar.size(); i++) {
-                mListRecipes.add(ar.get(i));
-                }
-            if (ar != null) Log.i("YAYAAAY", "berhasil isi oii!... size = "+ar.size());
-            if (mListRecipes == null) Log.i("mListRecipes", "null -------------");
-
-             mRecipeAdapter.setmRecipeList(mListRecipes);
+                listRecipes.add(ar.get(i));
+            }
+            mRecipeAdapter.setmRecipeList(listRecipes);
         } else {
             loadRecipes();
         }
@@ -92,7 +85,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
                 mListRecipes = response.body();
                 mRecipeAdapter.setmRecipeList(mListRecipes);
             }
-
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
                 Log.e(TAG, t.toString());

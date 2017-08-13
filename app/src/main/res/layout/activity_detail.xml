@@ -8,6 +8,13 @@
     tools:context="com.ekosp.bakingapps.DetailActivity">
 
 
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"

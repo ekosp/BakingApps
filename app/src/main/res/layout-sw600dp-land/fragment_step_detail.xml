@@ -13,8 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"/>
 
-
-
     <TextView
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -39,17 +37,17 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-          android:gravity="center" >
+        android:gravity="center">
 
-            <Button
+        <Button
 
-                android:id="@+id/prevStepButon"
-                android:background="@drawable/prev_button"
-                android:layout_width="64px"
-                android:layout_height="64px" />
+            android:id="@+id/prevStepButon"
+            android:background="@drawable/prev_button"
+            android:layout_width="64px"
+            android:layout_height="64px" />
 
         <TextView
-            android:layout_marginLeft="20dp"
+           android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:id="@+id/stepPosition"
             android:layout_width="wrap_content"
