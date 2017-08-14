@@ -37,7 +37,8 @@ public class WidgetProvider extends AppWidgetProvider {
 
             svcIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
-            String number = String.format("%03d", (new Random().nextInt(900) + 100));
+			Random rand = new Random();
+            String number = String.valueOf( rand.nextInt(3) + 0);
 
             mRecipeIndex = 0;
             //svcIntent.putExtra(PARAM_RECIPE_ID, String.valueOf(mRecipeIndex));
