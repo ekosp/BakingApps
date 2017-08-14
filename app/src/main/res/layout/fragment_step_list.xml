@@ -3,13 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ekosp.bakingapps.detail.StepListFragment">
 
     <TextView
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="List of Ingredient :"
+        android:text="@string/list_of_ingredient"
         android:layout_width="match_parent"
         android:background="@color/black"
         android:textColor="@color/white"
@@ -17,8 +16,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:padding="10dp">
+        android:layout_height="@dimen/size_130dp"
+        android:padding="@dimen/padding_10dp">
 
         <TextView
             android:id="@+id/ingredient_list"
@@ -27,36 +26,11 @@
 
 
     </ScrollView>
-    <!--
-        &lt;!&ndash;TextView and Button displayed in First Fragment &ndash;&gt;
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="This is First Fragment"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/firstButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="50dp"
-            android:background="@color/colorPrimary"
-            android:text="First Fragment"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />-->
 
     <TextView
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="List of Step :"
+        android:paddingLeft="@dimen/padding_10dp"
+        android:paddingRight="@dimen/padding_10dp"
+        android:text="@string/list_of_step"
         android:layout_width="match_parent"
         android:background="@color/black"
         android:textColor="@color/white"

@@ -4,9 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.pushtorefresh.storio.sqlite.queries.Query;
 
-
-// We suggest to store table meta such as table name, columns names, queries, etc in separate class
-// Because it makes code of the Entity itself cleaner and easier to read/understand/support
+//Custom code based from library documentation at https://github.com/pushtorefresh/storio
 public class IngredientTable {
 
     @NonNull

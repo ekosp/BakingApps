@@ -158,8 +158,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
 
                 } catch (StorIOException e) {
                     e.printStackTrace();
-                   // Toast.makeText(this, R.string.app_name, Toast.LENGTH_LONG).show();
-
                 }
 
                 return null;
@@ -167,18 +165,12 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
 
             @Override
             protected void onPostExecute(Void aVoid) {
-               updateFavoriteButtons();
+              // do nothing for now
             }
-        } //.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-
-    private void updateFavoriteButtons() {
-        Toast.makeText(this, "berhasil add recipe dummy to database!", Toast.LENGTH_SHORT).show();
-    }
+        }
 
     @Override
     public void open(Recipe recipe) {
-      //  Toast.makeText(this, "open recipe id :"+recipe.getId(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(DetailActivity.PARAM_RECIPE_ID, recipe);
         startActivity(intent);
@@ -188,22 +180,19 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-       // if (mListRecipes == null ) Log.i("CEK MLISTRECIPES", "kosong???!!!!");
         if (mListRecipes != null ) {
-          //  Log.i("CEK MLISTRECIPES", "isi kok ...........!!!");
             outState.putParcelableArrayList( TAG_PARAM_RECIPE_LIST, listToArrayList(mListRecipes));
         }
     }
 
     private ArrayList<Recipe> listToArrayList(List<Recipe> recipeList) {
-
         ArrayList<Recipe> arrayRecipe = new ArrayList<>(recipeList.size());
         arrayRecipe.addAll(recipeList);
         Log.i("listToArrayList", "size = "+String.valueOf(arrayRecipe.size()));
-
         return arrayRecipe;
     }
 
+    // to calculate number of recycle in row
     public static int calculateNoOfColumns(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;

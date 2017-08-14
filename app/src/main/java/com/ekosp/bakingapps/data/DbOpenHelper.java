@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
+//Custom code based from library documentation at https://github.com/pushtorefresh/storio
 public class DbOpenHelper extends SQLiteOpenHelper {
 
     public DbOpenHelper(@NonNull Context context) {

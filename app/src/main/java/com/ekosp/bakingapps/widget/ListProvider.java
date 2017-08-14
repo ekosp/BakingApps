@@ -50,17 +50,6 @@ public class ListProvider implements RemoteViewsFactory {
 				.addTypeMapping(IngredientData.class, new IngredientDataSQLiteTypeMapping())
 				.build();
 
-		/*List<IngredientData> receivedIngredient = storIOSQLite
-                .get()
-                .listOfObjects(IngredientData.class)
-                .withQuery(Query.builder()
-                        .table("ingredient")
-                        .where("recipe_id = ?")
-                        .whereArgs(recipeId)
-                        .build())
-                .prepare()
-                .executeAsBlocking();*/
-
         List<IngredientData> receivedIngredient = storIOSQLite
                 .get()
                 .listOfObjects(IngredientData.class)

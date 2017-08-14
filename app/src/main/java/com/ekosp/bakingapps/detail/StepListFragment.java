@@ -51,7 +51,6 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
         ingredientList = (TextView) view.findViewById(R.id.ingredient_list);
         ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
 
-        // set toolbar
         // get from : https://stackoverflow.com/questions/26998455/how-to-get-toolbar-from-fragment
         // and from:  https://freakycoder.com/android-notes-24-how-to-add-back-button-at-toolbar-941e6577418e
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar);
@@ -75,7 +74,6 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity().getApplicationContext()));
 
         mStepAdapter = new StepAdapter(getActivity(),this);
-       // mStepAdapter = new StepAdapter(getActivity().getApplicationContext(),null);
         mRecyclerView.setAdapter(mStepAdapter);
 
         loadSteps();

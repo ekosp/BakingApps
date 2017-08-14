@@ -8,15 +8,15 @@
 
 
     <TextView
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="@dimen/size_5dp"
+        android:layout_marginStart="@dimen/size_5dp"
         android:id="@+id/quantityText"
-        android:layout_width="5mm"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        tools:text="2"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="5dip"
-        android:textSize="14sp"   />
+        tools:text="@string/text_2"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:textSize="@dimen/size_text_14sp"   />
 
     <TextView
         android:id="@+id/measureText"
@@ -24,18 +24,17 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         tools:text="CUP"
-        android:layout_alignParentLeft="true"
         android:layout_marginTop="5dip"
         android:textSize="14sp"   />
 
     <TextView
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="@dimen/size_5dp"
+        android:layout_marginStart="@dimen/size_5dp"
         android:id="@+id/ingredientText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         tools:text="Graham Cracker crumbs"
-        android:layout_alignParentLeft="true"
         android:layout_marginTop="5dip"
         android:textSize="14sp"   />
 

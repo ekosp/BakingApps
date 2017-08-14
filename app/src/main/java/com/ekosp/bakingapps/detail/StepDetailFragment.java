@@ -124,7 +124,7 @@ public class StepDetailFragment extends Fragment {
             playerView = (SimpleExoPlayerView) view.findViewById(R.id.video_view);
         }
 
-        // almost all exoplayer implementation using
+        // almost all exoplayer implementation code using
         // code from : https://codelabs.developers.google.com/codelabs/exoplayer-intro/
         initializePlayer(stepArrayList.get(mStepId).getVideoURL());
 

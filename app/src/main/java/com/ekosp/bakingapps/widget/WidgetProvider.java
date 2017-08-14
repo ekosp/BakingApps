@@ -5,12 +5,20 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.ekosp.bakingapps.R;
+import com.ekosp.bakingapps.data.DbOpenHelper;
+import com.ekosp.bakingapps.data.IngredientData;
+import com.ekosp.bakingapps.data.IngredientDataSQLiteTypeMapping;
+import com.pushtorefresh.storio.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
+import com.pushtorefresh.storio.sqlite.queries.Query;
 
+import java.util.List;
 import java.util.Random;
 
 public class WidgetProvider extends AppWidgetProvider {
@@ -21,6 +29,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	 */
 	public static String PARAM_RECIPE_ID = "PARAM_RECIPE_ID";
     private int mRecipeIndex ;
+	private StorIOSQLite storIOSQLite;
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -38,12 +47,43 @@ public class WidgetProvider extends AppWidgetProvider {
             svcIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
 			Random rand = new Random();
-            String number = String.valueOf( rand.nextInt(3) + 0);
+            String number = String.valueOf( rand.nextInt(4) + 1);
 
             mRecipeIndex = 0;
             //svcIntent.putExtra(PARAM_RECIPE_ID, String.valueOf(mRecipeIndex));
             svcIntent.putExtra(PARAM_RECIPE_ID, number);
             svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
+
+			// only to get recipe name to put on widget title
+			storIOSQLite = DefaultStorIOSQLite.builder()
+					.sqliteOpenHelper(new DbOpenHelper(context))
+					.addTypeMapping(IngredientData.class, new IngredientDataSQLiteTypeMapping())
+					.build();
+
+			List<IngredientData> receivedIngredient = storIOSQLite
+					.get()
+					.listOfObjects(IngredientData.class)
+					.withQuery(Query.builder()
+							.table("ingredient")
+							.where("recipe_id = ?")
+							.whereArgs(number)
+							.build())
+					.prepare()
+					.executeAsBlocking();
+
+			Cursor cursor = storIOSQLite
+					.get()
+					.cursor()
+					.withQuery(Query.builder() // Or RawQuery
+							.table("ingredient")
+							.where("recipe_id = ?")
+							.whereArgs(number)
+							.build())
+					.prepare()
+					.executeAsBlocking();
+
+			cursor.moveToFirst();
+			String recipeName = cursor.getString(cursor.getColumnIndex("recipe_name"));
 
             remoteViews.setRemoteAdapter(appWidgetId, R.id.listViewWidget,
                     svcIntent);
@@ -51,7 +91,7 @@ public class WidgetProvider extends AppWidgetProvider {
             // update onClick
             int widgetId = appWidgetIds[i];
 
-           remoteViews.setTextViewText(R.id.recipeText, number);
+           remoteViews.setTextViewText(R.id.recipeText, recipeName);
             remoteViews.setEmptyView(R.id.listViewWidget, R.id.empty_view);
 
 

@@ -9,7 +9,7 @@
 
 
         <LinearLayout
-            android:padding="5dp"
+            android:padding="@dimen/size_5dp"
             android:id="@+id/step_detail_container"
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -19,19 +19,13 @@
             <TextView
                 android:id="@+id/shortDescription"
                 tools:text="Prep the cookie crust."
-                android:paddingLeft="15dp"
-                android:textSize="20sp"
+                android:paddingLeft="@dimen/size_15dp"
+                android:paddingStart="@dimen/size_15dp"
+                android:paddingRight="@dimen/zero_width"
+                android:paddingEnd="@dimen/zero_width"
+                android:textSize="@dimen/text_20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
-
-          <!--  <TextView
-                android:id="@+id/description"
-                tools:text="2. Whisk the graham cracker crumbs, 50 grams (1/4 cup) of sugar, and 1/2 teaspoon of salt together in a medium bowl. Pour the melted butter and 1 teaspoon of vanilla into the dry ingredients and stir together until evenly mixed."
-                android:gravity="bottom"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />-->
-
 
         </LinearLayout>
 

@@ -9,15 +9,19 @@
     </style>
 
     <style name="AppThemeMain" parent="AppTheme">
-
     </style>
 
     <style name="AppThemeStepDetailFragment" parent="AppTheme">
-
     </style>
 
     <style name="NoActionbar" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
 
+    <style name="QText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">sans</item>
     </style>
 
 

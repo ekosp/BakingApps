@@ -6,19 +6,16 @@
     android:baselineAligned="false"
     tools:context="com.ekosp.bakingapps.detail.StepListFragment">
 
-
         <com.google.android.exoplayer2.ui.SimpleExoPlayerView
             android:id="@+id/video_view"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="250dp"/>
 
-
-
     <TextView
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Step's Detail :"
+        android:paddingLeft="@dimen/padding_10dp"
+        android:paddingRight="@dimen/padding_10dp"
+        android:text="@string/step_s_detail"
         android:layout_width="match_parent"
         android:background="@color/black"
         android:textColor="@color/white"
@@ -28,12 +25,12 @@
         android:id="@+id/stepDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="5. Beat the cream cheese and 50 grams (1/4 cup) of sugar on medium speed in a stand mixer or high speed with a hand mixer for 3 minutes. Decrease the speed to medium-low and gradually add in the cold cream. Add in 2 teaspoons of vanilla and beat until stiff peaks form."
+        android:layout_marginTop="@dimen/padding_10dp"
+        android:paddingLeft="@dimen/padding_10dp"
+        android:paddingRight="@dimen/padding_10dp"
+        tools:text="@string/dummy_detail_step"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp" />
+        android:textSize="@dimen/text_20sp" />
 
     <LinearLayout
         android:layout_gravity="center_horizontal"
@@ -42,29 +39,27 @@
           android:gravity="center" >
 
             <Button
-
                 android:id="@+id/prevStepButon"
                 android:background="@drawable/prev_button"
-                android:layout_width="64px"
-                android:layout_height="64px" />
+                android:layout_width="@dimen/width_64dp"
+                android:layout_height="@dimen/width_64dp" />
 
         <TextView
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="@dimen/margin_20dp"
+            android:layout_marginRight="@dimen/margin_20dp"
             android:id="@+id/stepPosition"
             android:layout_width="wrap_content"
-            tools:text="5/10"
+            tools:text="@string/step_position"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_20sp"
             android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/nextStepButon"
-
             android:background="@drawable/next_button"
             android:gravity="center|center_vertical"
-            android:layout_width="64px"
-            android:layout_height="64px" />
+            android:layout_width="@dimen/width_64dp"
+            android:layout_height="@dimen/width_64dp" />
 
     </LinearLayout>
 

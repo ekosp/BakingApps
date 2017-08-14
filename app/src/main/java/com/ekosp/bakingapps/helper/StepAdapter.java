@@ -46,8 +46,6 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     public void onBindViewHolder(final StepViewHolder holder, int position) {
         Step mStep = mStepList.get(position);
         holder.mShortDescription.setText(mStep.getShortDescription());
-      //  holder.mDescription.setText(mStep.getDescription());
-
         holder.mLinearContainer.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 int pos = holder.getAdapterPosition();
@@ -71,7 +69,6 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         public StepViewHolder(final View itemView) {
             super(itemView);
             mShortDescription = (TextView) itemView.findViewById(R.id.shortDescription);
-         //   mDescription = (TextView) itemView.findViewById(R.id.description);
             mLinearContainer = (LinearLayout) itemView.findViewById(R.id.step_detail_container);
         }
     }

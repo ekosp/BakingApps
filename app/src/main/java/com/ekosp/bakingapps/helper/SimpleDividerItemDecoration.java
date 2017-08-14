@@ -12,6 +12,8 @@ import com.ekosp.bakingapps.R;
  * Created by Eko S.P on 09/08/2017.
  */
 
+
+// im forget where this sample i got, but it opensource for sure
 public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
 

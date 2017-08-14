@@ -16,8 +16,14 @@
     </style>
 
     <style name="AppThemeStepDetailFragment" parent="Theme.AppCompat.Light.NoActionBar">
-
         <!--<item name="colorPrimaryDark">@color/white</item>-->
+    </style>
+
+    <style name="QText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">sans</item>
     </style>
 
 
