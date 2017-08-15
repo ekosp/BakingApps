@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BakingApps.iml" filepath="$PROJECT_DIR$/BakingApps.iml" />
       <module fileurl="file://$PROJECT_DIR$/BakingApps_baru.iml" filepath="$PROJECT_DIR$/BakingApps_baru.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

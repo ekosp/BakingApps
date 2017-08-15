@@ -13,18 +13,12 @@ public class IngredientTable {
     @NonNull
     public static final String COLUMN_ID = "_id";
 
-    /**
-     * For example: "artem_zin" without "@"
-     */
     @NonNull
     public static final String COLUMN_RECIPE_ID = "recipe_id";
 
     @NonNull
     public static final String COLUMN_RECIPE_NAME = "recipe_name";
 
-    /**
-     * For example: "Check out StorIO — modern API for SQLiteDatabase & ContentResolver #androiddev"
-     */
     @NonNull
     public static final String COLUMN_INGREDIENT_CONTENT = "ingredient_content";
 

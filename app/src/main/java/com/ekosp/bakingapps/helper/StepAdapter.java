@@ -1,10 +1,8 @@
 package com.ekosp.bakingapps.helper;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,8 @@ import com.ekosp.bakingapps.models.Step;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by eko.purnomo on 04/08/2017.
@@ -57,10 +57,8 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
                 mStepCallbacks.open(steps);
             }
         });
-
         // set recipe image if exist
         if (!TextUtils.isEmpty(mStep.getThumbnailURL()))
-        //if (mStep.getThumbnailURL() != null && !mStep.getThumbnailURL().isEmpty() )
             Picasso.with(mContext)
                     .load(mStep.getThumbnailURL())
                     .placeholder(R.color.colorPrimary)
@@ -73,15 +71,16 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder {
-        protected TextView mShortDescription;
-        protected LinearLayout mLinearContainer;
-        protected ImageView mImageThumbnail;
+        @BindView(R.id.shortDescription)
+        TextView mShortDescription;
+        @BindView(R.id.step_detail_container)
+        LinearLayout mLinearContainer;
+        @BindView(R.id.step_thumbnail)
+        ImageView mImageThumbnail;
 
         public StepViewHolder(final View itemView) {
             super(itemView);
-            mShortDescription = (TextView) itemView.findViewById(R.id.shortDescription);
-            mLinearContainer = (LinearLayout) itemView.findViewById(R.id.step_detail_container);
-            mImageThumbnail = (ImageView) itemView.findViewById(R.id.step_thumbnail);
+            ButterKnife.bind(this, itemView);
         }
     }
 

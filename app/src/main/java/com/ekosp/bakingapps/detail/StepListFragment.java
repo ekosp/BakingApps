@@ -32,14 +32,19 @@ import com.ekosp.bakingapps.models.Step;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class StepListFragment extends Fragment implements StepAdapter.stepCallbacks {
 
     public static String PARAM_RECIPE_ID = "PARAM_RECIPE_ID";
     public static String PARAM_TAG_FRAGMENNT_STEP_LIST =  "TAG_STEP_LIST";
     View view;
+    @BindView(R.id.ingredient_list)
     TextView ingredientList;
     Recipe mRecipe;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.recycler_step)
+    RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private StepAdapter mStepAdapter;
     private boolean mIsTablet ;
@@ -47,8 +52,9 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_step_list, container, false);
-        ingredientList = (TextView) view.findViewById(R.id.ingredient_list);
+        ButterKnife.bind(this, view);
         ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
 
         // get from : https://stackoverflow.com/questions/26998455/how-to-get-toolbar-from-fragment
@@ -58,17 +64,8 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        // removed as udacity's reviewer issue's solution
-        /*  toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(((AppCompatActivity) getActivity()).
-                        getApplicationContext(),RecipeListActivity.class));
-            }
-        });*/
 
         //set recycle step detail
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_step);
         mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -89,7 +86,6 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments().containsKey(StepListFragment.PARAM_RECIPE_ID)) {
             mRecipe = getArguments().getParcelable(StepListFragment.PARAM_RECIPE_ID);
         }
@@ -111,7 +107,6 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
                    .replace(R.id.flDetailContainer, fragment, PARAM_TAG_FRAGMENNT_STEP_LIST)
                    .addToBackStack(null)
                    .commit();
-
        } else {
            // set step detail fragment
            android.support.v4.app.Fragment fragment = new StepDetailFragment();
@@ -122,8 +117,6 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
                    .addToBackStack(null)
                    .commit();
        }
-
-
    }
 
     private ArrayList<Step> listToArrayList(List<Step> stepList) {
@@ -131,9 +124,5 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
         arrayStep.addAll(stepList);
         return arrayStep;
     }
-
-
-
-
 
 }

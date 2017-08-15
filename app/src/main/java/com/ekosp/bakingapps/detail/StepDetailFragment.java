@@ -46,19 +46,27 @@ import com.google.android.exoplayer2.util.Util;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class StepDetailFragment extends Fragment {
 
     View view;
+    @BindView(R.id.stepDescription)
     TextView mStepdescription;
+    @BindView(R.id.stepPosition)
     TextView mStepPos;
     public static String PARAM_LIST_STEP = "PARAM_LIST_STEP";
     public static String PARAM_DETAIL_STEP_ID = "PARAM_DETAIL_STEP_ID";
     ArrayList<Step> stepArrayList;
     int mStepId;
+    @BindView(R.id.nextStepButon)
     Button nextStepBtn;
+    @BindView(R.id.prevStepButon)
     Button prevStepBtn;
     private SimpleExoPlayer player;
-    private SimpleExoPlayerView playerView;
+    @BindView(R.id.video_view)
+    SimpleExoPlayerView playerView;
 
     private long playbackPosition;
     private int currentWindow;
@@ -82,7 +90,7 @@ public class StepDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_step_detail, container, false);
-
+        ButterKnife.bind(this, view);
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(PARAM_LIST_STEP))
                 stepArrayList = savedInstanceState.getParcelableArrayList(PARAM_LIST_STEP);
@@ -94,13 +102,7 @@ public class StepDetailFragment extends Fragment {
         setToolbar();
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT || mIsTablet ){
-            mStepdescription = (TextView) view.findViewById(R.id.stepDescription);
-            playerView = (SimpleExoPlayerView) view.findViewById(R.id.video_view);
-            mStepPos = (TextView) view.findViewById(R.id.stepPosition);
             mStepdescription.setText(stepArrayList.get(mStepId).getDescription());
-            nextStepBtn = (Button) view.findViewById(R.id.nextStepButon);
-            prevStepBtn = (Button) view.findViewById(R.id.prevStepButon);
-
             nextStepBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
@@ -139,15 +141,12 @@ public class StepDetailFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        // removed as udacity's reviewer issue's solution
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // save id step
         outState.putInt(PARAM_DETAIL_STEP_ID,mStepId);
-        // save stepArrayList
         if (stepArrayList != null) outState.putParcelableArrayList(PARAM_LIST_STEP ,stepArrayList);
         outState.putBoolean("stepDetail", true);
     }

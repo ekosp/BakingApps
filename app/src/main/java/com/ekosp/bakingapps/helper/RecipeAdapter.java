@@ -4,18 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ekosp.bakingapps.R;
 import com.ekosp.bakingapps.models.Recipe;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by eko.purnomo on 04/08/2017.
@@ -34,8 +33,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         this.mRecipeCallbacks = mRecipeCallbacks;
     }
 
-
-
     public interface recipeCallbacks {
         void open(Recipe recipe);
     }
@@ -51,10 +48,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(final RecipeViewHolder holder, int position) {
         Recipe mRecipe = mRecipeList.get(position);
         holder.mName.setText(mRecipe.getName());
-         holder.mServings.setText(mContext.getString(R.string.text_servings)+mRecipe.getServings());
+        holder.mServings.setText(mContext.getString(R.string.text_servings)+mRecipe.getServings());
 
         // set recipe image if exist
-       // if (mRecipe.getImage() != null && !mRecipe.getImage().isEmpty() )
         if (!TextUtils.isEmpty(mRecipe.getImage()))
         Picasso.with(mContext)
                 .load(mRecipe.getImage())
@@ -76,17 +72,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
-        protected TextView mName;
-        protected CardView mCardRecipeView;
-        protected TextView mServings;
-        protected ImageView mRecipeImage;
+        @BindView(R.id.name) TextView mName;
+        @BindView(R.id.card_recipe_view)
+        CardView mCardRecipeView;
+        @BindView(R.id.servings)
+        TextView mServings;
+        @BindView(R.id.imageViewKu)
+        ImageView mRecipeImage;
 
         public RecipeViewHolder(final View itemView) {
             super(itemView);
-            mName = (TextView) itemView.findViewById(R.id.name);
-            mServings = (TextView) itemView.findViewById(R.id.servings);
-            mCardRecipeView = (CardView) itemView.findViewById(R.id.card_recipe_view);
-            mRecipeImage = (ImageView) itemView.findViewById(R.id.imageViewKu);
+            ButterKnife.bind(this , itemView);
         }
     }
 

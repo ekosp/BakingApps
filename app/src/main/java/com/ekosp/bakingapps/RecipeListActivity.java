@@ -1,14 +1,10 @@
 package com.ekosp.bakingapps;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,20 +14,17 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ekosp.bakingapps.data.DbOpenHelper;
 import com.ekosp.bakingapps.data.IngredientData;
 import com.ekosp.bakingapps.data.IngredientDataSQLiteTypeMapping;
-import com.ekosp.bakingapps.data.IngredientTable;
 import com.ekosp.bakingapps.helper.RecipeAdapter;
 import com.ekosp.bakingapps.helper.ApiClient;
 import com.ekosp.bakingapps.helper.ApiInterface;
 import com.ekosp.bakingapps.models.Ingredients;
 import com.ekosp.bakingapps.models.Recipe;
-import com.ekosp.bakingapps.models.Step;
 import com.pushtorefresh.storio.StorIOException;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
@@ -41,6 +34,8 @@ import com.pushtorefresh.storio.sqlite.queries.DeleteQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,27 +44,28 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
 
     private static final String TAG = RecipeListActivity.class.getSimpleName();
     private List<Recipe> mListRecipes;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private RecipeAdapter mRecipeAdapter;
     private static String TAG_PARAM_RECIPE_LIST = "TAG_PARAM_RECIPE_LIST";
     private boolean mIsTablet ;
     private StorIOSQLite storIOSQLite;
-    private TextView emptyView;
+    @BindView(R.id.empty_view)
+    TextView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.recipe_list);
+        ButterKnife.bind(this);
 
         storIOSQLite = DefaultStorIOSQLite.builder()
                 .sqliteOpenHelper(new DbOpenHelper(this))
                 .addTypeMapping(IngredientData.class, new IngredientDataSQLiteTypeMapping())
                 .build();
 
-        emptyView = (TextView) findViewById(R.id.empty_view);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecipeAdapter = new RecipeAdapter(this,this);
@@ -115,14 +111,12 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
     public void loadRecipes() {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-
         Call<List<Recipe>> call = apiService.getRecipeDetails();
         call.enqueue(new Callback<List<Recipe>>() {
 
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 mListRecipes = response.body();
-
                 if (mListRecipes.isEmpty()) {
                     mRecyclerView.setVisibility(View.GONE);
                     emptyView.setVisibility(View.VISIBLE);
@@ -133,8 +127,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
                     mRecipeAdapter.setmRecipeList(mListRecipes);
                     new addRecipeToContentProvider().execute(mListRecipes);
                 }
-
-
             }
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
@@ -144,11 +136,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
         });
     }
 
-
-
     private class addRecipeToContentProvider extends AsyncTask<List<Recipe>, Void, Void> {
-
-
             @Override
             protected Void doInBackground(List<Recipe>... params) {
 
@@ -169,7 +157,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
                 }
 
              try {
-
                  // delete content to get latest recipe
                     storIOSQLite
                             .delete()
@@ -178,18 +165,15 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
                                     .build())
                             .prepare()
                             .executeAsBlocking();
-
                     // set latest recipe to db
                    PutResults<IngredientData> results = storIOSQLite
                             .put()
                             .objects(ingredients)
                             .prepare()
                             .executeAsBlocking();
-
                 } catch (StorIOException e) {
                     e.printStackTrace();
                 }
-
                 return null;
             }
 
@@ -218,7 +202,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
     private ArrayList<Recipe> listToArrayList(List<Recipe> recipeList) {
         ArrayList<Recipe> arrayRecipe = new ArrayList<>(recipeList.size());
         arrayRecipe.addAll(recipeList);
-      //  Log.i("listToArrayList", "size = "+String.valueOf(arrayRecipe.size()));
         return arrayRecipe;
     }
 
