@@ -3,6 +3,7 @@ package com.ekosp.bakingapps.helper;
 import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,8 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         });
 
         // set recipe image if exist
-        if (mStep.getThumbnailURL() != null && !mStep.getThumbnailURL().isEmpty() )
+        if (!TextUtils.isEmpty(mStep.getThumbnailURL()))
+        //if (mStep.getThumbnailURL() != null && !mStep.getThumbnailURL().isEmpty() )
             Picasso.with(mContext)
                     .load(mStep.getThumbnailURL())
                     .placeholder(R.color.colorPrimary)

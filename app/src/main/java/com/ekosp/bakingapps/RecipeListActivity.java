@@ -7,6 +7,8 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +18,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,17 +98,18 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
         } else {
             if (isNetworkConnected()) {
                 loadRecipes();
+            } else {
+                mRecyclerView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Please enable yout internet connection", Toast.LENGTH_SHORT).show();
             }
-            mRecyclerView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Please enable yout internet connection", Toast.LENGTH_SHORT).show();
-
         }
     }
 
     private boolean isNetworkConnected() {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             return cm.getActiveNetworkInfo() != null;
+
     }
 
     public void loadRecipes() {
@@ -135,6 +139,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
                 Log.e(TAG, t.toString());
+                Toast.makeText(RecipeListActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }
         });
     }

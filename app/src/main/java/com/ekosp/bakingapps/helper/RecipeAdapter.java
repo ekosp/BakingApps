@@ -3,6 +3,7 @@ package com.ekosp.bakingapps.helper;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
          holder.mServings.setText(mContext.getString(R.string.text_servings)+mRecipe.getServings());
 
         // set recipe image if exist
-        if (mRecipe.getImage() != null && !mRecipe.getImage().isEmpty() )
+       // if (mRecipe.getImage() != null && !mRecipe.getImage().isEmpty() )
+        if (!TextUtils.isEmpty(mRecipe.getImage()))
         Picasso.with(mContext)
                 .load(mRecipe.getImage())
                 .placeholder(R.color.colorPrimary)

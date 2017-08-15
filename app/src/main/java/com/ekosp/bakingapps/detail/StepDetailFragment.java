@@ -49,13 +49,14 @@ import java.util.ArrayList;
 public class StepDetailFragment extends Fragment {
 
     View view;
-    TextView mStepdescription, mStepPos;
-    public static String PARAM_TAG_FRAGMENNT_STEP_DETAIL =  "TAG_STEP_DETAIL";
+    TextView mStepdescription;
+    TextView mStepPos;
     public static String PARAM_LIST_STEP = "PARAM_LIST_STEP";
     public static String PARAM_DETAIL_STEP_ID = "PARAM_DETAIL_STEP_ID";
     ArrayList<Step> stepArrayList;
-    int mStepId;// id ;
-    Button nextStepBtn, prevStepBtn;
+    int mStepId;
+    Button nextStepBtn;
+    Button prevStepBtn;
     private SimpleExoPlayer player;
     private SimpleExoPlayerView playerView;
 
@@ -75,7 +76,6 @@ public class StepDetailFragment extends Fragment {
         if (getArguments().containsKey(StepDetailFragment.PARAM_DETAIL_STEP_ID)) {
             mStepId = getArguments().getInt(StepDetailFragment.PARAM_DETAIL_STEP_ID);
         }
-
     }
 
     @Override
@@ -140,13 +140,6 @@ public class StepDetailFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         // removed as udacity's reviewer issue's solution
-        /*  toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.popBackStack();
-            }
-        });*/
     }
 
     @Override
