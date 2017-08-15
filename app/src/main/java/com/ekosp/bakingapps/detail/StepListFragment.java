@@ -58,13 +58,14 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        // removed as udacity's reviewer issue's solution
+        /*  toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(((AppCompatActivity) getActivity()).
                         getApplicationContext(),RecipeListActivity.class));
             }
-        });
+        });*/
 
         //set recycle step detail
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_step);

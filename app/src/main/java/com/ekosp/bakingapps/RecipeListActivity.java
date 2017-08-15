@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +14,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ekosp.bakingapps.data.DbOpenHelper;
@@ -48,6 +52,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
     private static String TAG_PARAM_RECIPE_LIST = "TAG_PARAM_RECIPE_LIST";
     private boolean mIsTablet ;
     private StorIOSQLite storIOSQLite;
+    private TextView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
                 .addTypeMapping(IngredientData.class, new IngredientDataSQLiteTypeMapping())
                 .build();
 
+        emptyView = (TextView) findViewById(R.id.empty_view);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -87,8 +93,19 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
             }
             mRecipeAdapter.setmRecipeList(listRecipes);
         } else {
-            loadRecipes();
+            if (isNetworkConnected()) {
+                loadRecipes();
+            }
+            mRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            Toast.makeText(this, "Please enable yout internet connection", Toast.LENGTH_SHORT).show();
+
         }
+    }
+
+    private boolean isNetworkConnected() {
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo() != null;
     }
 
     public void loadRecipes() {
@@ -101,9 +118,19 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 mListRecipes = response.body();
-                mRecipeAdapter.setmRecipeList(mListRecipes);
 
-                new addRecipeToContentProvider().execute(mListRecipes);
+                if (mListRecipes.isEmpty()) {
+                    mRecyclerView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    emptyView.setVisibility(View.GONE);
+                    mRecipeAdapter.setmRecipeList(mListRecipes);
+                    new addRecipeToContentProvider().execute(mListRecipes);
+                }
+
+
             }
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
@@ -143,8 +170,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
                             .delete()
                             .byQuery(DeleteQuery.builder()
                                     .table("ingredient")
-                                   // .where("timestamp <= ?")
-                                   // .whereArgs(System.currentTimeMillis() - 86400) // No need to write String.valueOf()
                                     .build())
                             .prepare()
                             .executeAsBlocking();
@@ -188,7 +213,7 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeAdapt
     private ArrayList<Recipe> listToArrayList(List<Recipe> recipeList) {
         ArrayList<Recipe> arrayRecipe = new ArrayList<>(recipeList.size());
         arrayRecipe.addAll(recipeList);
-        Log.i("listToArrayList", "size = "+String.valueOf(arrayRecipe.size()));
+      //  Log.i("listToArrayList", "size = "+String.valueOf(arrayRecipe.size()));
         return arrayRecipe;
     }
 

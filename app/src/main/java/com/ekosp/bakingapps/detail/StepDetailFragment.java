@@ -139,13 +139,14 @@ public class StepDetailFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        // removed as udacity's reviewer issue's solution
+        /*  toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.popBackStack();
             }
-        });
+        });*/
     }
 
     @Override

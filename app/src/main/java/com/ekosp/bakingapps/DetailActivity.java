@@ -43,8 +43,8 @@ public class DetailActivity extends AppCompatActivity {
             android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction()
                     .replace(R.id.frameLayout, fragment)
-                    .addToBackStack(BACK_STACK_ROOT_TAG)
-                    //  .addToBackStack(null)
+                    // removed as udacity's reviewer issue's solution
+                    //  .addToBackStack(BACK_STACK_ROOT_TAG)
                     .commit();
         }
 
