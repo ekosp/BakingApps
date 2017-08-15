@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="5dp"
+    android:padding="@dimen/width_1dp"
     android:orientation="vertical">
 
 
@@ -12,11 +12,17 @@
             android:padding="@dimen/size_5dp"
             android:id="@+id/step_detail_container"
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/step_thumbnail"
+                android:layout_width="@dimen/size_50dp"
+                android:layout_height="@dimen/size_50dp"
+                android:background="@color/cardview_dark_background"/>
 
             <TextView
+                android:gravity="center_vertical"
                 android:id="@+id/shortDescription"
                 tools:text="Prep the cookie crust."
                 android:paddingLeft="@dimen/size_15dp"
@@ -28,8 +34,5 @@
                 android:layout_height="match_parent" />
 
         </LinearLayout>
-
-
-
 
 </LinearLayout>

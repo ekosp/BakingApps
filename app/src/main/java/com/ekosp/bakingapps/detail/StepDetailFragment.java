@@ -181,16 +181,20 @@ public class StepDetailFragment extends Fragment {
 
 
     private void initializePlayer(String videoURL) {
-        player = ExoPlayerFactory.newSimpleInstance(
-                getActivity().getApplicationContext(),
-                new DefaultTrackSelector(), new DefaultLoadControl());
-        playerView.setPlayer(player);
-        player.setPlayWhenReady(playWhenReady);
-        player.seekTo(currentWindow, playbackPosition);
+        // to avoid the player is initialized multiple times and leaving unreleased instances behind
+        if (player == null) {
+            player = ExoPlayerFactory.newSimpleInstance(
+                    getActivity().getApplicationContext(),
+                    new DefaultTrackSelector(), new DefaultLoadControl());
+            playerView.setPlayer(player);
+            player.setPlayWhenReady(playWhenReady);
+            player.seekTo(currentWindow, playbackPosition);
 
-        Uri uri = Uri.parse(videoURL);
-        MediaSource mediaSource = buildMediaSource(uri);
-        player.prepare(mediaSource, true, false);
+            Uri uri = Uri.parse(videoURL);
+            MediaSource mediaSource = buildMediaSource(uri);
+            player.prepare(mediaSource, true, false);
+        }
+
     }
 
     private MediaSource buildMediaSource(Uri uri) {

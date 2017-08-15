@@ -50,7 +50,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(final RecipeViewHolder holder, int position) {
         Recipe mRecipe = mRecipeList.get(position);
         holder.mName.setText(mRecipe.getName());
-         holder.mServings.setText("servings:"+mRecipe.getServings());
+         holder.mServings.setText(mContext.getString(R.string.text_servings)+mRecipe.getServings());
 
         // set recipe image if exist
         if (mRecipe.getImage() != null && !mRecipe.getImage().isEmpty() )
@@ -75,7 +75,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
         protected TextView mName;
-        //protected LinearLayout mLinearContainer;
         protected CardView mCardRecipeView;
         protected TextView mServings;
         protected ImageView mRecipeImage;
@@ -84,9 +83,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             super(itemView);
             mName = (TextView) itemView.findViewById(R.id.name);
             mServings = (TextView) itemView.findViewById(R.id.servings);
-            //mLinearContainer = (LinearLayout) itemView.findViewById(R.id.recipe_container);
             mCardRecipeView = (CardView) itemView.findViewById(R.id.card_recipe_view);
-
             mRecipeImage = (ImageView) itemView.findViewById(R.id.imageViewKu);
         }
     }

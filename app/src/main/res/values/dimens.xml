@@ -22,4 +22,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="size_120dp">120dp</dimen>
     <dimen name="text_25sp">25sp</dimen>
     <dimen name="size_15dp">15dp</dimen>
+    <dimen name="size_250dp">250dp</dimen>
+    <dimen name="size_50dp">50dp</dimen>
 </resources>

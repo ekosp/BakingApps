@@ -3,7 +3,6 @@ package com.ekosp.bakingapps.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
@@ -11,14 +10,12 @@ import com.ekosp.bakingapps.R;
 import com.ekosp.bakingapps.data.DbOpenHelper;
 import com.ekosp.bakingapps.data.IngredientData;
 import com.ekosp.bakingapps.data.IngredientDataSQLiteTypeMapping;
-import com.ekosp.bakingapps.data.IngredientTable;
 import com.pushtorefresh.storio.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio.sqlite.impl.DefaultStorIOSQLite;
 import com.pushtorefresh.storio.sqlite.queries.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * If you are familiar with Adapter of ListView,this is the same as adapter
@@ -43,9 +40,7 @@ public class ListProvider implements RemoteViewsFactory {
 
 	private void populateListItem(String recipeId) {
 
-        Log.i("recipe_id","  di populateList Widget : " +recipeId);
-
-		storIOSQLite = DefaultStorIOSQLite.builder()
+       		storIOSQLite = DefaultStorIOSQLite.builder()
 				.sqliteOpenHelper(new DbOpenHelper(context))
 				.addTypeMapping(IngredientData.class, new IngredientDataSQLiteTypeMapping())
 				.build();
@@ -82,13 +77,13 @@ public class ListProvider implements RemoteViewsFactory {
 
 	/*
 	 *Similar to getView of Adapter where instead of View
-	 *we return RemoteViews 
-	 * 
+	 *we return RemoteViews
+	 *
 	 */
 	@Override
 	public RemoteViews getViewAt(int position) {
 		final RemoteViews remoteView = new RemoteViews(
-				context.getPackageName(), R.layout.list_row);
+				context.getPackageName(), R.layout.list_widget_row);
 		ListItem listItem = listItemList.get(position);
 		remoteView.setTextViewText(R.id.quantityText, listItem.quantity);
         remoteView.setTextViewText(R.id.measureText, listItem.measure);

@@ -10,4 +10,5 @@
     <string name="list_of_ingredient">List of Ingredient :</string>
     <string name="text_2">2</string>
     <string name="no_data_available">no data available</string>
+    <string name="text_servings">servings :</string>
 </resources>
