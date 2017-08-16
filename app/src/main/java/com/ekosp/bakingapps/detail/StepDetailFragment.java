@@ -177,7 +177,6 @@ public class StepDetailFragment extends Fragment {
         mStepPos.setText(id+"/"+(size-1));
     }
 
-
     private void initializePlayer(String videoURL) {
         // to avoid the player is initialized multiple times and leaving unreleased instances behind
         if (player == null) {
@@ -192,7 +191,6 @@ public class StepDetailFragment extends Fragment {
             MediaSource mediaSource = buildMediaSource(uri);
             player.prepare(mediaSource, true, false);
         }
-
     }
 
     private MediaSource buildMediaSource(Uri uri) {
