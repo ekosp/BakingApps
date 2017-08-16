@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -52,19 +53,24 @@ import butterknife.ButterKnife;
 public class StepDetailFragment extends Fragment {
 
     View view;
+    @Nullable
     @BindView(R.id.stepDescription)
     TextView mStepdescription;
+    @Nullable
     @BindView(R.id.stepPosition)
     TextView mStepPos;
     public static String PARAM_LIST_STEP = "PARAM_LIST_STEP";
     public static String PARAM_DETAIL_STEP_ID = "PARAM_DETAIL_STEP_ID";
     ArrayList<Step> stepArrayList;
     int mStepId;
+    @Nullable
     @BindView(R.id.nextStepButon)
     Button nextStepBtn;
+    @Nullable
     @BindView(R.id.prevStepButon)
     Button prevStepBtn;
     private SimpleExoPlayer player;
+    @Nullable
     @BindView(R.id.video_view)
     SimpleExoPlayerView playerView;
 
