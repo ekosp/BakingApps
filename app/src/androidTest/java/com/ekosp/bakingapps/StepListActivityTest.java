@@ -119,8 +119,8 @@ public class StepListActivityTest {
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
-        onView(withId(R.id.ingredient_list))
-                .check(matches(CustomMatcher.withText(R.string.text_brownis)));
+       /* onView(withId(R.id.ingredient_list))
+                .check(matches(CustomMatcher.withText(R.string.text_brownis)));*/
 
         // click on step number 9
         onView(withId(R.id.recycler_step))

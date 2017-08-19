@@ -55,15 +55,15 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
 
         view = inflater.inflate(R.layout.fragment_step_list, container, false);
         ButterKnife.bind(this, view);
-       //ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
+       ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
 
         // testing html as string
         //ingredientList.setText(Converter.IngredientToHtmlAsString(mRecipe.getIngredientList()));
 
-       String tets_string = "Brownis";
-       ingredientList.setText(tets_string);
+     //  String tets_string = "Brownis";
+      // ingredientList.setText(tets_string);
 
-        Log.i("test", ""+ingredientList.getText());
+      //  Log.i("test", ""+ingredientList.getText());
 
 
         // get from : https://stackoverflow.com/questions/26998455/how-to-get-toolbar-from-fragment
