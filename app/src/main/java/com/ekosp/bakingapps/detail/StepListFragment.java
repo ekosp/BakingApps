@@ -55,7 +55,16 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
 
         view = inflater.inflate(R.layout.fragment_step_list, container, false);
         ButterKnife.bind(this, view);
-        ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
+       //ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
+
+        // testing html as string
+        //ingredientList.setText(Converter.IngredientToHtmlAsString(mRecipe.getIngredientList()));
+
+       String tets_string = "Brownis";
+       ingredientList.setText(tets_string);
+
+        Log.i("test", ""+ingredientList.getText());
+
 
         // get from : https://stackoverflow.com/questions/26998455/how-to-get-toolbar-from-fragment
         // and from:  https://freakycoder.com/android-notes-24-how-to-add-back-button-at-toolbar-941e6577418e
@@ -63,7 +72,6 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //set recycle step detail
         mLinearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());

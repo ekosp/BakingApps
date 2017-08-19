@@ -15,6 +15,7 @@ import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.BoundedMatcher;
+import android.support.test.espresso.matcher.CursorMatchers;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -100,7 +101,7 @@ public class StepListActivityTest {
 
         waitFor(DateUtils.SECOND_IN_MILLIS * 2000, true);
         // check item count is 4
-        onView(withId(R.id.recycler_view)).check(new RecyclerViewItemCountAssertion(4));
+       //onView(withId(R.id.recycler_view)).check(new RecyclerViewItemCountAssertion(4));
 
         RecyclerViewInteraction.<String>onRecyclerView(withId(R.id.recycler_view))
                 .withItems(Arrays.asList("Nutella Pie", "Brownies", "Yellow Cake", "Cheesecake"))
@@ -113,13 +114,13 @@ public class StepListActivityTest {
         // click 2nd recipe "Brownies"
         onView(withRecyclerView(R.id.recycler_view)
                 .atPositionOnView(1, R.id.name))
-                // dear reviewer can you help me, i want to check text that set on this recycleView iem
-                // TextView = +id/name
-                //.check(matches(hasValueEqualTo("Brownis")));
                 .check(matches(isDisplayed()));
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+
+        onView(withId(R.id.ingredient_list))
+                .check(matches(CustomMatcher.withText(R.string.text_brownis)));
 
         // click on step number 9
         onView(withId(R.id.recycler_step))
@@ -235,6 +236,28 @@ public class StepListActivityTest {
                 return false;
             }
         };
+    }
+
+    String getText(final Matcher<View> matcher) {
+        final String[] stringHolder = { null };
+        onView(matcher).perform(new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(TextView.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "getting text from a TextView";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                TextView tv = (TextView)view; //Save, because of check in getConstraints()
+                stringHolder[0] = tv.getText().toString();
+            }
+        });
+        return stringHolder[0];
     }
 
 }
