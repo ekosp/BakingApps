@@ -9,6 +9,8 @@ package com.ekosp.bakingapps.detail;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +41,9 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
 
     public static String PARAM_RECIPE_ID = "PARAM_RECIPE_ID";
     public static String PARAM_TAG_FRAGMENNT_STEP_LIST =  "TAG_STEP_LIST";
+
+    public static String BUNDLE_RECYCLER_LAYOUT = "BUNDLE_RECYCLER_LAYOUT";
+
     View view;
     @BindView(R.id.ingredient_list)
     TextView ingredientList;
@@ -55,22 +60,12 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
 
         view = inflater.inflate(R.layout.fragment_step_list, container, false);
         ButterKnife.bind(this, view);
-       ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
-
-        // testing html as string
-        //ingredientList.setText(Converter.IngredientToHtmlAsString(mRecipe.getIngredientList()));
-
-     //  String tets_string = "Brownis";
-      // ingredientList.setText(tets_string);
-
-      //  Log.i("test", ""+ingredientList.getText());
-
+        ingredientList.setText(Converter.IngredientToString(mRecipe.getIngredientList()));
 
         // get from : https://stackoverflow.com/questions/26998455/how-to-get-toolbar-from-fragment
         // and from:  https://freakycoder.com/android-notes-24-how-to-add-back-button-at-toolbar-941e6577418e
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.tool_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //set recycle step detail
@@ -131,6 +126,23 @@ public class StepListFragment extends Fragment implements StepAdapter.stepCallba
         ArrayList<Step> arrayStep = new ArrayList<>(stepList.size());
         arrayStep.addAll(stepList);
         return arrayStep;
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if(savedInstanceState != null)
+        {
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BUNDLE_RECYCLER_LAYOUT, mRecyclerView.getLayoutManager().onSaveInstanceState());
     }
 
 }

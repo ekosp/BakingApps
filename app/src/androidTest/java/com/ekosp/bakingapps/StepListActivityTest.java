@@ -119,16 +119,22 @@ public class StepListActivityTest {
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
-       /* onView(withId(R.id.ingredient_list))
-                .check(matches(CustomMatcher.withText(R.string.text_brownis)));*/
+        onView(withId(R.id.ingredient_list))
+                .check(matches(CustomMatcher.withText(R.string.text_brownis)));
 
         // click on step number 9
         onView(withId(R.id.recycler_step))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(9, click()));
         // click on prev button
         for (int i =0; i<9; i++) {
-            onView(withId(R.id.prevStepButon)).perform(click());
-            waitFor(DateUtils.SECOND_IN_MILLIS * 500, true);
+
+
+            onView(withId(R.id.prevStepButon))
+
+                    .perform(click());
+
+
+            waitFor(DateUtils.SECOND_IN_MILLIS * 4000, true);
         }
 
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());

@@ -15,6 +15,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(@NonNull SQLiteDatabase db) {
         db.execSQL(IngredientTable.getCreateTableQuery());
+
     }
 
     @Override

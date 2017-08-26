@@ -7,12 +7,9 @@
     android:layout_height="match_parent"
     tools:context="com.ekosp.bakingapps.DetailActivity">
 
-
-
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"    />
-
 
     <FrameLayout
         android:id="@+id/frameLayout"

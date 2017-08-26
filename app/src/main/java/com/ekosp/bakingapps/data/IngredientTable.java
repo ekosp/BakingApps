@@ -9,16 +9,12 @@ public class IngredientTable {
 
     @NonNull
     public static final String TABLE = "ingredient";
-
     @NonNull
     public static final String COLUMN_ID = "_id";
-
     @NonNull
     public static final String COLUMN_RECIPE_ID = "recipe_id";
-
     @NonNull
     public static final String COLUMN_RECIPE_NAME = "recipe_name";
-
     @NonNull
     public static final String COLUMN_INGREDIENT_CONTENT = "ingredient_content";
 
